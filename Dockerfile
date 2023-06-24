@@ -1,5 +1,5 @@
 FROM alpine:latest
-
+EXPOSE 9000
 WORKDIR /root
 COPY xray.sh /root/xray.sh
 COPY config.json /etc/xray/config.json
