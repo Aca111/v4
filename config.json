@@ -30,12 +30,7 @@
                 "network": "http",
                 "security": "tls",
                 "tlsSettings": {
-                    "certificates": [
-                        {
-                            "certificateFile": "/path/to/certificate.crt",
-                            "keyFile": "/path/to/key.key"
-                        }
-                    ]
+
                 }
             }
         }
