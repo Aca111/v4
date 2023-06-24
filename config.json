@@ -1,19 +1,53 @@
 {
-  "inbounds": [{
-    "port": 9000,
-    "protocol": "vmess",
-    "settings": {
-      "clients": [
+    "log": {
+        "loglevel": "warning"
+    },
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "type": "field",
+                "ip": [
+                    "geoip:private"
+                ],
+                "outboundTag": "block"
+            }
+        ]
+    },
+    "inbounds": [
         {
-          "id": "1eb6e917-774b-4a84-aff6-b058577c60a5",
-          "level": 1,
-          "alterId": 64
+            "listen": "0.0.0.0",
+            "port": 9000,
+            "protocol": "vmess",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "1eb6e917-774b-4a84-aff6-b058577c60a5"
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "http",
+                "security": "tls",
+                "tlsSettings": {
+                    "certificates": [
+                        {
+                            "certificateFile": "/path/to/certificate.crt",
+                            "keyFile": "/path/to/key.key"
+                        }
+                    ]
+                }
+            }
         }
-      ]
-    }
-  }],
-  "outbounds": [{
-    "protocol": "freedom",
-    "settings": {}
-  }]
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "block"
+        }
+    ]
 }
